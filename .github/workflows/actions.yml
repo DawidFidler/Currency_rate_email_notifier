@@ -1,1 +1,5 @@
-blabla
+name: run main.py
+
+on:
+  schedule:
+    -cron: 
