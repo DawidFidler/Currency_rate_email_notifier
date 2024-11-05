@@ -3,8 +3,6 @@ import os
 from dotenv import load_dotenv
 from email.message import EmailMessage
 import smtplib
-import schedule
-import time
 
 
 
