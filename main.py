@@ -47,8 +47,3 @@ def send_email():
     print("Email was correctly sent.")
 
 send_email()
-# schedule.every(2).minutes.do(send_email)
-# #schedule.every().day.at(08:00).do(send_email)
-# while True:     # Keeps the scheduler running indefinitely, continuously checking if any scheduled tasks are due to run.
-#         schedule.run_pending()
-#         time.sleep(1)

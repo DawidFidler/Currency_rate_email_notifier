@@ -2,11 +2,11 @@ name: Run Python Script on Schedule
 
 on:
   schedule:
-    - cron: "*/3 * * * *"  # Executes every 3 minutes
+    - cron: "*/6 * * * *"  # Executes every 3 minutes
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest  # Corrected from "run-on" to "runs-on"
+    runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2  # Fetches the repository code into the workflow environment
