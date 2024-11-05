@@ -4,6 +4,11 @@ from dotenv import load_dotenv
 from email.message import EmailMessage
 import smtplib
 
+load_dotenv()
+api_key = os.getenv("API_KEY")
+gmail_key = os.getenv("GMAIL_KEY")
+email_sender = os.getenv("EMAIL_SENDER")
+email_receiver = os.getenv("EMAIL_RECEIVER")
 
 
 def gold_course(base, currency):
@@ -18,13 +23,6 @@ def gold_course(base, currency):
     pln_xau_rate = round(data["rates"].get("PLNXAU"), 2)
     print("Response data", data)
     return pln_xau_rate
-
-
-load_dotenv()
-api_key = os.getenv("API_KEY")
-gmail_key = os.getenv("GMAIL_KEY")
-email_sender = os.getenv("EMAIL_SENDER")
-email_receiver = os.getenv("EMAIL_RECEIVER")
 
 
 def send_email():
@@ -43,6 +41,7 @@ def send_email():
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(email_sender, gmail_key)
         smtp.sendmail(email_sender, email_receiver, msg.as_string())
+    
     print("Email was correctly sent.")
 
 send_email()
