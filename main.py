@@ -2,8 +2,10 @@ import requests
 import os
 from dotenv import load_dotenv
 from email.message import EmailMessage
-import ssl #doczytać -> standard technology for kipping internet connection secure and safeguarding any data that is being sent to systems
 import smtplib
+import schedule
+import time
+
 
 
 def gold_course(base, currency):
@@ -45,3 +47,8 @@ def send_email():
     print("Email was correctly sent.")
 
 send_email()
+# schedule.every(2).minutes.do(send_email)
+# #schedule.every().day.at(08:00).do(send_email)
+# while True:     # Keeps the scheduler running indefinitely, continuously checking if any scheduled tasks are due to run.
+#         schedule.run_pending()
+#         time.sleep(1)

@@ -1,5 +1,23 @@
-name: run main.py
+name: Run Python Script on Schedule
 
 on:
   schedule:
-    -cron: 
+    - cron: "*/3 * * * *"  # Executes every 3 minutes
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest  # Corrected from "run-on" to "runs-on"
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2  # Fetches the repository code into the workflow environment
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'  # Python version to use
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt  # Installs dependencies from requirements.txt
+
+      - name: Run the script
+        run: python main.py  # Runs the Python script
