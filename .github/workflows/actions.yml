@@ -7,6 +7,11 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    env:
+      api_key: ${{ secrets.API_KEY }}
+      gmail_key: ${{ secrets.GMAIL_KEY }}
+      email_sender: ${{ secrets.EMAIL_SENDER }}
+      email_receiver: ${{ secrets.EMAIL_RECEIVER }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2  # Fetches the repository code into the workflow environment
@@ -23,9 +28,4 @@ jobs:
         run: pip install -r requirements.txt  # Installs dependencies from requirements.txt
 
       - name: Run the script
-        env:
-          api_key: ${{ secrets.API_KEY }}
-          gmail_key: ${{ secrets.GMAIL_KEY }}
-          email_sender: ${{ secrets.EMAIL_SENDER }}
-          email_receiver: ${{ secrets.EMAIL_RECEIVER }}
         run: python main.py  # Runs the Python script
