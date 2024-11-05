@@ -15,6 +15,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.11'  # Python version to use
+      
+      - name: Upgrade pip
+        run: pip install --upgrade pip # Upgrading pip
 
       - name: Install dependencies
         run: pip install -r requirements.txt  # Installs dependencies from requirements.txt
