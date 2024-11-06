@@ -11,19 +11,6 @@ EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
 
-# def gold_course(base, currency):
-#     url = "https://api.metalpriceapi.com/v1/latest"
-#     params = {
-#         "api_key": API_KEY,
-#         "base": base,
-#         "currencies": currency
-#         }
-#     response = requests.get(url, params=params)
-#     data = (response.json())
-#     pln_xau_rate = round(data["rates"].get("PLNXAU"), 2)
-#     print("Response data", data)
-#     return pln_xau_rate
-
 def gold_course(currency, unit):
     url = "https://api.metals.dev/v1/latest"
     params = {
@@ -34,10 +21,8 @@ def gold_course(currency, unit):
     response = requests.get(url, params=params)
     data = (response.json())
     pln_xau_rate = round(data["metals"].get("gold"), 2)
-    #print("Response data", data)
     return pln_xau_rate
 
-# gold_course(currency="PLN", unit="toz")
 
 def send_email():
     gold_rate = gold_course(currency="PLN", unit="toz")
