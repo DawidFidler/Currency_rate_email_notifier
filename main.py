@@ -34,7 +34,7 @@ def gold_course(currency, unit):
     response = requests.get(url, params=params)
     data = (response.json())
     pln_xau_rate = round(data["metals"].get("gold"), 2)
-    print("Response data", data)
+    #print("Response data", data)
     return pln_xau_rate
 
 # gold_course(currency="PLN", unit="toz")
