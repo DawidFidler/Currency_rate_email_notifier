@@ -5,16 +5,16 @@ from email.message import EmailMessage
 import smtplib
 
 load_dotenv()
-api_key = os.getenv("API_KEY")
-gmail_key = os.getenv("GMAIL_KEY")
-email_sender = os.getenv("EMAIL_SENDER")
-email_receiver = os.getenv("EMAIL_RECEIVER")
+API_KEY = os.getenv("API_KEY")
+GMAIL_KEY = os.getenv("GMAIL_KEY")
+EMAIL_SENDER = os.getenv("EMAIL_SENDER")
+EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
 
 def gold_course(base, currency):
     url = "https://api.metalpriceapi.com/v1/latest"
     params = {
-        "api_key": api_key,
+        "api_key": API_KEY,
         "base": base,
         "currencies": currency
         }
@@ -33,14 +33,14 @@ def send_email():
     """
 
     msg = EmailMessage()
-    msg["From"] = email_sender
-    msg["To"] = email_receiver
+    msg["From"] = EMAIL_SENDER
+    msg["To"] = EMAIL_RECEIVER
     msg["Subject"] = subject
     msg.set_content(body)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login(email_sender, gmail_key)
-        smtp.sendmail(email_sender, email_receiver, msg.as_string())
+        smtp.login(EMAIL_SENDER, GMAIL_KEY)
+        smtp.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, msg.as_string())
     
     print("Email was correctly sent.")
 

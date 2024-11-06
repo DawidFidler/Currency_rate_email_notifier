@@ -8,10 +8,10 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     env:
-      api_key: ${{ secrets.API_KEY }}
-      gmail_key: ${{ secrets.GMAIL_KEY }}
-      email_sender: ${{ secrets.EMAIL_SENDER }}
-      email_receiver: ${{ secrets.EMAIL_RECEIVER }}
+      API_KEY: ${{ secrets.API_KEY }}
+      GMAIL_KEY: ${{ secrets.GMAIL_KEY }}
+      EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+      EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2  # Fetches the repository code into the workflow environment
