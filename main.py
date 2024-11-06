@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from email.message import EmailMessage
 import smtplib
+from datetime import datetime
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
@@ -26,16 +27,33 @@ def gold_course(currency, unit):
 
 def send_email():
     gold_rate = gold_course(currency="PLN", unit="toz")
-    subject = "Tygodniowy kurs złota"
+    subject = "Gold Rate Update for Today"
     body = f"""
-    Kurs uncji złota na dziś wynosi: {gold_rate}zł.
+    <html>
+    <body style="font-family: Arial, sans-serif;">
+        <h2>📈 Today's Gold Rate</h2>
+        <p>Hello,</p>
+        <p>Here is the latest update on the gold rate:</p>
+        <table style="border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
+            <tr>
+                <td style="padding: 8px;"><strong>Gold Rate (1 oz):</strong></td>
+                <td style="padding: 8px;">{gold_rate} PLN</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;"><strong>Date:</strong></td>
+                <td style="padding: 8px;">{datetime.now().strftime('%d-%m-%Y')}</td>
+            </tr>
+        </table>
+    </body>
+    </html>
     """
 
     msg = EmailMessage()
     msg["From"] = EMAIL_SENDER
     msg["To"] = EMAIL_RECEIVER
     msg["Subject"] = subject
-    msg.set_content(body)
+    #msg.set_content(body)
+    msg.add_alternative(body, subtype='html')
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(EMAIL_SENDER, GMAIL_KEY)
