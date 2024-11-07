@@ -12,7 +12,7 @@ EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
 
-def gold_course(currency, unit):
+def get_metal_rate(currency, unit, metal):
     url = "https://api.metals.dev/v1/latest"
     params = {
         "api_key": API_KEY,
@@ -21,28 +21,52 @@ def gold_course(currency, unit):
         }
     response = requests.get(url, params=params)
     data = (response.json())
-    pln_xau_rate = round(data["metals"].get("gold"), 2)
-    return pln_xau_rate
+    return data["metals"].get(metal)
+
+
+def get_currencies_rate(base, currency_symbol):
+    url = "https://api.metals.dev/v1/currencies"
+    params = {
+        "api_key": API_KEY,
+        "base": base
+    }
+    response = requests.get(url, params=params)
+    data = (response.json())
+    return data["currencies"].get(currency_symbol)
 
 
 def send_email():
-    gold_rate = gold_course(currency="PLN", unit="toz")
-    subject = "Gold Rate Update for Today"
+    gold_rate = round(get_metal_rate(currency="PLN", unit="toz", metal="gold"), 2)
+    euro_rate = round(get_currencies_rate(base="PLN", currency_symbol="EUR"), 3)
+    dollar_rate = round(get_currencies_rate(base="PLN", currency_symbol="USD"), 3)
+    franc_rate = round(get_currencies_rate(base="PLN", currency_symbol="CHF"), 3)
+    subject = "🪙💵Daily Gold&Currency rates📈📉"
     body = f"""
     <html>
     <body style="font-family: Arial, sans-serif;">
-        <h2>📈 Today's Gold Rate</h2>
-        <p>Hello,</p>
-        <p>Here is the latest update on the gold rate:</p>
+        <h2>Gold&Currency Rates</h2>
         <table style="border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
-            <tr>
-                <td style="padding: 8px;"><strong>Gold Rate (1 oz):</strong></td>
-                <td style="padding: 8px;">{gold_rate} PLN</td>
-            </tr>
             <tr>
                 <td style="padding: 8px;"><strong>Date:</strong></td>
                 <td style="padding: 8px;">{datetime.now().strftime('%d-%m-%Y')}</td>
             </tr>
+            <tr>
+                <td style="padding: 8px;"><strong>Gold rate (1 oz):</strong></td>
+                <td style="padding: 8px;">{gold_rate} PLN</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;"><strong>Euro rate:</strong></td>
+                <td style="padding: 8px;">{euro_rate} PLN</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;"><strong>US Dollar rate:</strong></td>
+                <td style="padding: 8px;">{dollar_rate} PLN</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;"><strong>Switzerland Franc rate:</strong></td>
+                <td style="padding: 8px;">{franc_rate} PLN</td>
+            </tr>
+
         </table>
     </body>
     </html>
