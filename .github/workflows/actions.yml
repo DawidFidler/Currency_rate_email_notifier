@@ -1,4 +1,4 @@
-name: Run Python Script on Schedule
+name: Daily rate sender
 
 on:
   workflow_dispatch:
