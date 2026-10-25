@@ -3,7 +3,7 @@ name: Run Python Script on Schedule
 on:
   workflow_dispatch:
   schedule:
-     - cron: "*/20 * * * *"  # Executes everyday at 8:00 AM UTC+1
+     - cron: "*/40 * * * *"  # Executes everyday at 8:00 AM UTC+1
 
 jobs:
   run-script:
@@ -15,10 +15,10 @@ jobs:
       EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2  # Fetches the repository code into the workflow environment
+        uses: actions/checkout@v4  # Fetches the repository code into the workflow environment
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'  # Python version to use
       
