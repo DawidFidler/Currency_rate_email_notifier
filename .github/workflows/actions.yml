@@ -3,7 +3,7 @@ name: Daily rate sender
 on:
   workflow_dispatch:
   schedule:
-     - cron: "*/40 * * * *"  # Executes everyday at 8:00 AM UTC+1
+     - cron: "0 5 * * 1-5"  # Executes everyday at 6:00 AM UTC+2
 
 jobs:
   run-script:
