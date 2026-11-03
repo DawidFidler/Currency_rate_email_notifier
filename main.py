@@ -4,6 +4,7 @@ from datetime import datetime
 from email.message import EmailMessage
 import requests
 from dotenv import load_dotenv
+from zoneinfo import ZoneInfo
 
 load_dotenv()
 
@@ -59,7 +60,7 @@ def send_email() -> None:
     euro_rate = round(currencies["EUR"], 2)
     dollar_rate = round(currencies["USD"], 2)
     franc_rate = round(currencies["CHF"], 2)
-    now = datetime.now()
+    now = datetime.now(ZoneInfo("Europe/Warsaw"))
 
     subject = "🪙💵Daily Gold&Currency rates📈📉"
     text_body = f"""Gold and currency rates
