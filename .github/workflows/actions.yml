@@ -1,9 +1,9 @@
 name: Daily rate sender
 
 on:
+  schedule:
+    - cron: '23 4 * * *'
   workflow_dispatch:
-  repository_dispatch:
-    types: [run_python_script]
 
 jobs:
   run-script:
@@ -15,18 +15,19 @@ jobs:
       EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4  # Fetches the repository code into the workflow environment
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'  # Python version to use
-
-      - name: Upgrade pip
-        run: pip install --upgrade pip # Upgrading pip
+          python-version: '3.11'
+          cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt  # Installs dependencies from requirements.txt
+        run: |
+          if [ -s requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
 
       - name: Run the script
-        run: python main.py  # Runs the Python script
+        run: python main.py
