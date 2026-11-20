@@ -2,7 +2,7 @@ name: Daily rate sender
 
 on:
   schedule:
-    - cron: '23 22 * * *'
+    - cron: '23 4 * * *'
   workflow_dispatch:
 
 jobs:
